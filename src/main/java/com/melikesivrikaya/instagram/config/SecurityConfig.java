@@ -13,7 +13,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(aut -> aut
-                        .requestMatchers("/home")
+                        .requestMatchers("/login/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated()
