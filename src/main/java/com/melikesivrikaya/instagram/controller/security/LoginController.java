@@ -1,7 +1,9 @@
 package com.melikesivrikaya.instagram.controller.security;
 
 import com.melikesivrikaya.instagram.model.User;
+import com.melikesivrikaya.instagram.request.AuthenticateRequest;
 import com.melikesivrikaya.instagram.request.RegisterRequest;
+import com.melikesivrikaya.instagram.response.AuthenticateResponse;
 import com.melikesivrikaya.instagram.response.RegisterResponse;
 import com.melikesivrikaya.instagram.service.security.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +20,9 @@ public class LoginController {
     @PostMapping("/register")
     public RegisterResponse register(@RequestBody RegisterRequest reguest){
         return authenticationService.register(reguest);
+    }
+    @PostMapping("/authenticate")
+    public AuthenticateResponse authenticate(@RequestBody AuthenticateRequest request){
+        return authenticationService.authenticate(request);
     }
 }
