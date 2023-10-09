@@ -35,7 +35,7 @@ public class PostControllerImpl implements PostController {
     public Post update(@RequestBody Post post) {
         return postService.update(post);
     }
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     @Override
     public boolean deleteById(@PathVariable Long id) {
         return postService.deleteById(id);

@@ -11,6 +11,8 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
+@RestController
+@RequestMapping("/comment")
 public class CommentControllerImpl implements CommentController {
     private final CommentService commentService;
     @GetMapping
@@ -33,7 +35,7 @@ public class CommentControllerImpl implements CommentController {
     public Comment update(@RequestBody Comment comment) {
         return commentService.update(comment);
     }
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     @Override
     public boolean deleteById(@PathVariable Long id) {
         return commentService.deleteById(id);

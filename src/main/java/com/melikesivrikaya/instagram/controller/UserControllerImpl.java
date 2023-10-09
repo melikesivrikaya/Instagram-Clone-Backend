@@ -35,7 +35,7 @@ public class UserControllerImpl implements UserController {
     public User update(@RequestBody User user) {
         return userService.update(user);
     }
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     @Override
     public boolean deleteById(@PathVariable Long id) {
         return userService.deleteById(id);

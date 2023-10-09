@@ -12,7 +12,7 @@ import java.util.Optional;
 @Controller
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "/like")
+@RequestMapping("/like")
 public class LikeControllerImpl implements LikeController {
     private final LikeServiceImpl likeService;
     @GetMapping
@@ -35,7 +35,7 @@ public class LikeControllerImpl implements LikeController {
     public Like update(@RequestBody Like like) {
         return likeService.update(like);
     }
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     @Override
     public boolean deleteById(@PathVariable Long id) {
         return likeService.deleteById(id);
