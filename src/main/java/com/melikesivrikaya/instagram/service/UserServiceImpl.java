@@ -2,19 +2,22 @@ package com.melikesivrikaya.instagram.service;
 
 import com.melikesivrikaya.instagram.model.User;
 import com.melikesivrikaya.instagram.repository.UserRepository;
+import com.melikesivrikaya.instagram.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserResponse> getAll() {
+        List<User> users = userRepository.findAll();
+        return users.stream().map(UserResponse::new).collect(Collectors.toList());
     }
 
     @Override
@@ -23,13 +26,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
-        return userRepository.save(user);
+    public UserResponse create(User user) {
+        return new UserResponse(userRepository.save(user));
     }
 
     @Override
-    public User update(User user) {
-        return userRepository.save(user);
+    public UserResponse update(User user) {
+        return new UserResponse(userRepository.save(user));
     }
 
     @Override

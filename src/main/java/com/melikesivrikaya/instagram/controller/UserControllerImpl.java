@@ -1,6 +1,8 @@
 package com.melikesivrikaya.instagram.controller;
 
 import com.melikesivrikaya.instagram.model.User;
+import com.melikesivrikaya.instagram.response.UserResponse;
+import com.melikesivrikaya.instagram.service.UserService;
 import com.melikesivrikaya.instagram.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,10 +16,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserControllerImpl implements UserController {
-    private final UserServiceImpl userService;
+    private final UserService userService;
     @GetMapping
     @Override
-    public List<User> getAll() {
+    public List<UserResponse> getAll() {
         return userService.getAll();
     }
     @GetMapping("{id}")
@@ -27,12 +29,12 @@ public class UserControllerImpl implements UserController {
     }
     @PostMapping
     @Override
-    public User create(@RequestBody User user) {
+    public UserResponse create(@RequestBody User user) {
         return userService.create(user);
     }
     @PutMapping
     @Override
-    public User update(@RequestBody User user) {
+    public UserResponse update(@RequestBody User user) {
         return userService.update(user);
     }
     @DeleteMapping("{id}")
