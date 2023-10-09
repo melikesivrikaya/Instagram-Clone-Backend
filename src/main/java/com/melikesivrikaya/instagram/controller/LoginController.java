@@ -1,4 +1,4 @@
-package com.melikesivrikaya.instagram.controller.security;
+package com.melikesivrikaya.instagram.controller;
 
 import com.melikesivrikaya.instagram.model.User;
 import com.melikesivrikaya.instagram.request.AuthenticateRequest;

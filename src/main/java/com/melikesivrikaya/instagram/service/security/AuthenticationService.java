@@ -24,8 +24,13 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     public RegisterResponse register(RegisterRequest request){
         User user = new User();
-        user.setFirstname(request.getFirstname());
-        user.setLastname(request.getLastname());
+        if (request.getUsername() != null){
+            user.setUsername(request.getUsername());
+        }
+        if ((request.getPhone() != null)){
+            user.setPhone(request.getPhone());
+        }
+        user.setFullname(request.getFullname());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
         user.setEmail(request.getEmail());
@@ -35,10 +40,25 @@ public class AuthenticationService {
     }
 
     public AuthenticateResponse authenticate(AuthenticateRequest request) {
+        Object principal = null;
+
+        UserDetails user = null;
+
+        if(request.getEmail() != null){
+            user = userRepository.findByEmail(request.getEmail());
+            principal = request.getEmail();
+        }else if(request.getPhone() != null){
+            user = userRepository.findByPhone(request.getPhone());
+            principal = request.getPhone();
+        } else if (request.getUsername() != null) {
+            user = userRepository.findByUsername(request.getUsername());
+            principal = request.getUsername();
+        }
+
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail() , request.getPassword())
+                new UsernamePasswordAuthenticationToken(principal, request.getPassword())
         );
-        var user = userRepository.findByEmail(request.getEmail());
+
         var jwtToken= jwtService.generateToken(user);
         return new AuthenticateResponse(jwtToken);
     }

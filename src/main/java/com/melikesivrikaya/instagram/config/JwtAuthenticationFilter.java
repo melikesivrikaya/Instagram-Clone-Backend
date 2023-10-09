@@ -1,6 +1,5 @@
 package com.melikesivrikaya.instagram.config;
 
-import com.melikesivrikaya.instagram.repository.UserRepository;
 import com.melikesivrikaya.instagram.service.security.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,7 +36,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String email = jwtService.extractUsername(token);
 
         if(email != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            //Authentica yapmadığın için burata girmiyor
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
             if (jwtService.isValidateToken(token,userDetails) ){
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails , null , userDetails.getAuthorities());
