@@ -1,6 +1,7 @@
 package com.melikesivrikaya.instagram.controller;
 
 import com.melikesivrikaya.instagram.model.Like;
+import com.melikesivrikaya.instagram.request.CreateLikeRequest;
 import com.melikesivrikaya.instagram.service.LikeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class LikeControllerImpl implements LikeController {
     }
     @PostMapping
     @Override
-    public Like create(@RequestBody Like like) {
+    public Like create(@RequestBody CreateLikeRequest like) {
         return likeService.create(like);
     }
     @PutMapping

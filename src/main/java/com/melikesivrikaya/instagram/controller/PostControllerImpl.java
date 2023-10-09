@@ -1,6 +1,8 @@
 package com.melikesivrikaya.instagram.controller;
 
 import com.melikesivrikaya.instagram.model.Post;
+import com.melikesivrikaya.instagram.request.CreatePostRequest;
+import com.melikesivrikaya.instagram.request.UpdatePostRequest;
 import com.melikesivrikaya.instagram.service.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,12 +29,12 @@ public class PostControllerImpl implements PostController {
     }
     @PostMapping
     @Override
-    public Post create(@RequestBody Post post) {
+    public Post create(@RequestBody CreatePostRequest post) {
         return postService.create(post);
     }
     @PutMapping
     @Override
-    public Post update(@RequestBody Post post) {
+    public Post update(@RequestBody UpdatePostRequest post) {
         return postService.update(post);
     }
     @DeleteMapping("{id}")
