@@ -4,6 +4,7 @@ import com.melikesivrikaya.instagram.model.Post;
 import com.melikesivrikaya.instagram.request.CreatePostRequest;
 import com.melikesivrikaya.instagram.request.UpdatePostRequest;
 import com.melikesivrikaya.instagram.response.PostResponse;
+import com.melikesivrikaya.instagram.response.PostResponseWithCommentsAndLikes;
 import com.melikesivrikaya.instagram.service.PostService;
 import com.melikesivrikaya.instagram.service.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,10 @@ public class PostControllerImpl implements PostController {
     @Override
     public boolean deleteById(@PathVariable Long id) {
         return postService.deleteById(id);
+    }
+    @GetMapping("/userid/{userId}")
+    @Override
+    public List<PostResponseWithCommentsAndLikes> allPostsWithCommentAndLikesByUserId(@PathVariable Long userId) {
+        return postService.allPostsWithCommentAndLikesByUserId(userId);
     }
 }

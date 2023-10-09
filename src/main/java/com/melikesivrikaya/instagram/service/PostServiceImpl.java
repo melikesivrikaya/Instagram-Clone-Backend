@@ -1,15 +1,18 @@
 package com.melikesivrikaya.instagram.service;
 
-import com.melikesivrikaya.instagram.model.Post;
-import com.melikesivrikaya.instagram.model.User;
+import com.melikesivrikaya.instagram.model.*;
+import com.melikesivrikaya.instagram.repository.CommentRepository;
+import com.melikesivrikaya.instagram.repository.LikeRepository;
 import com.melikesivrikaya.instagram.repository.PostRepository;
 import com.melikesivrikaya.instagram.repository.UserRepository;
 import com.melikesivrikaya.instagram.request.CreatePostRequest;
 import com.melikesivrikaya.instagram.request.UpdatePostRequest;
 import com.melikesivrikaya.instagram.response.PostResponse;
+import com.melikesivrikaya.instagram.response.PostResponseWithCommentsAndLikes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final LikeRepository likeRepository;
+    private final CommentRepository commentRepository;
     @Override
     public List<PostResponse> getAll() {
         List<Post> posts =  postRepository.findAll();
@@ -75,5 +80,19 @@ public class PostServiceImpl implements PostService {
 
         }
         return false;
+    }
+
+    @Override
+    public List<PostResponseWithCommentsAndLikes> allPostsWithCommentAndLikesByUserId(Long userId) {
+        List<Post> postsByUserId = postRepository.findByUserId(userId);
+        List<PostResponseWithCommentsAndLikes> list = new ArrayList<>();
+        postsByUserId.forEach(post -> {
+            List<Like> likes = likeRepository.findByPostId(post.getId());
+            List<String> names = likes.stream().map(like -> like.getUser().getFullname()).toList();
+            List<Comment> comments = commentRepository.findByPostId(post.getId());
+            List<CommentWithUsernameAndText> commentWith = comments.stream().map(CommentWithUsernameAndText::new).toList();
+            list.add(new PostResponseWithCommentsAndLikes(post,commentWith , names));
+        });
+        return  list;
     }
 }
