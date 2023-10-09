@@ -6,11 +6,13 @@ import com.melikesivrikaya.instagram.repository.PostRepository;
 import com.melikesivrikaya.instagram.repository.UserRepository;
 import com.melikesivrikaya.instagram.request.CreatePostRequest;
 import com.melikesivrikaya.instagram.request.UpdatePostRequest;
+import com.melikesivrikaya.instagram.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,8 +20,9 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     @Override
-    public List<Post> getAll() {
-        return postRepository.findAll();
+    public List<PostResponse> getAll() {
+        List<Post> posts =  postRepository.findAll();
+        return posts.stream().map(PostResponse::new).collect(Collectors.toList());
     }
 
     @Override
@@ -28,18 +31,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post create(CreatePostRequest post) {
+    public PostResponse create(CreatePostRequest post) {
         Post newPost = new Post();
         newPost.setPhotourl(post.getPhotourl());
         newPost.setTitle(post.getTitle());
         newPost.setDescription(post.getDescription());
         User user = userRepository.findById(post.getUserId()).get();
         newPost.setUser(user);
-        return postRepository.save(newPost);
+        try {
+            postRepository.save(newPost);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return new PostResponse(newPost);
     }
 
     @Override
-    public Post update(UpdatePostRequest post) {
+    public PostResponse update(UpdatePostRequest post) {
         Post currentPost = postRepository.findById(post.getId()).get();
         if(post.getTitle() != null){
             currentPost.setTitle(post.getTitle());
@@ -50,7 +58,12 @@ public class PostServiceImpl implements PostService {
         if(post.getPhotourl() != null){
             currentPost.setPhotourl(post.getPhotourl());
         }
-        return postRepository.save(currentPost);
+        try {
+            postRepository.save(currentPost);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return new PostResponse(currentPost);
     }
 
     @Override

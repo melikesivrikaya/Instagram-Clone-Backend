@@ -3,6 +3,7 @@ package com.melikesivrikaya.instagram.controller;
 import com.melikesivrikaya.instagram.model.Comment;
 import com.melikesivrikaya.instagram.request.CreateCommentRequest;
 import com.melikesivrikaya.instagram.request.UpdateCommentRequest;
+import com.melikesivrikaya.instagram.response.CommentResponse;
 import com.melikesivrikaya.instagram.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ public class CommentControllerImpl implements CommentController {
     private final CommentService commentService;
     @GetMapping
     @Override
-    public List<Comment> getAll() {
+    public List<CommentResponse> getAll() {
         return commentService.getAll();
     }
     @GetMapping("{id}")
@@ -29,12 +30,12 @@ public class CommentControllerImpl implements CommentController {
     }
     @PostMapping
     @Override
-    public Comment create(@RequestBody CreateCommentRequest comment) {
+    public CommentResponse create(@RequestBody CreateCommentRequest comment) {
         return commentService.create(comment);
     }
     @PutMapping
     @Override
-    public Comment update(@RequestBody UpdateCommentRequest comment) {
+    public CommentResponse update(@RequestBody UpdateCommentRequest comment) {
         return commentService.update(comment);
     }
     @DeleteMapping("{id}")

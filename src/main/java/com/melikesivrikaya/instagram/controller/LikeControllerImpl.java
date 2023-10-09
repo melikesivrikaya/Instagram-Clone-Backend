@@ -2,6 +2,8 @@ package com.melikesivrikaya.instagram.controller;
 
 import com.melikesivrikaya.instagram.model.Like;
 import com.melikesivrikaya.instagram.request.CreateLikeRequest;
+import com.melikesivrikaya.instagram.response.LikeResponse;
+import com.melikesivrikaya.instagram.service.LikeService;
 import com.melikesivrikaya.instagram.service.LikeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/like")
 public class LikeControllerImpl implements LikeController {
-    private final LikeServiceImpl likeService;
+    private final LikeService likeService;
     @GetMapping
     @Override
-    public List<Like> getAll() {
+    public List<LikeResponse> getAll() {
         return likeService.getAll();
     }
     @GetMapping("{id}")
@@ -28,7 +30,7 @@ public class LikeControllerImpl implements LikeController {
     }
     @PostMapping
     @Override
-    public Like create(@RequestBody CreateLikeRequest like) {
+    public LikeResponse create(@RequestBody CreateLikeRequest like) {
         return likeService.create(like);
     }
     @PutMapping
