@@ -1,7 +1,8 @@
 package com.melikesivrikaya.instagram.controller;
 
+import com.melikesivrikaya.instagram.model.FriendRequestState;
 import com.melikesivrikaya.instagram.model.Friend;
-import com.melikesivrikaya.instagram.request.CreateFriendRequest;
+import com.melikesivrikaya.instagram.request.FriendRequest;
 import com.melikesivrikaya.instagram.response.FriendResponse;
 import com.melikesivrikaya.instagram.service.FriendService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class FriendControllerImpl implements FriendController {
     private final FriendService friendService;
     @GetMapping
     @Override
-    public List<Friend> getAll() {
+    public List<FriendResponse> getAll() {
         return friendService.getAll();
     }
     @GetMapping("{id}")
@@ -25,19 +26,28 @@ public class FriendControllerImpl implements FriendController {
     public Optional<Friend> getById(@PathVariable Long id) {
         return friendService.getById(id);
     }
-    @PostMapping
-    @Override
-    public FriendResponse create(@RequestBody CreateFriendRequest request) {
-        return friendService.create(request);
-    }
-    @PutMapping
-    @Override
-    public Friend update(@RequestBody Friend friend) {
-        return friendService.update(friend);
-    }
+
     @DeleteMapping("{id}")
     @Override
     public boolean deleteById(@PathVariable Long id) {
         return friendService.deleteById(id);
+    }
+    @GetMapping("userId/{id}")
+    @Override
+    public List<FriendResponse> getAllByUserId(@PathVariable Long id) {
+        return friendService.getAllByUserId(id);
+    }
+    @PostMapping("state")
+    @Override
+    public FriendResponse friendHandleState(@RequestBody FriendRequest request) {
+        if (request.getState() == FriendRequestState.SUCCESS){
+            return friendService.update(request);
+        }
+        else if(request.getState() == FriendRequestState.REQUEST){
+            return friendService.create(request);
+        } else if (request.getState() == FriendRequestState.DELETE) {
+            return friendService.deleteFriends(request);
+        }
+        return null;
     }
 }

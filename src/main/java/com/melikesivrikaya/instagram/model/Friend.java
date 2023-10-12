@@ -16,17 +16,21 @@ public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long friendId;
     private String firstname,lastname,fullname,username;
-
+    private FriendState friendState;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
-    public Friend(User user , User friend){
+    public Friend(User user , User friend , FriendState state){
+        this.setFriendId(friend.getId());
         this.firstname = friend.getFirstname();
         this.lastname = friend.getLastname();
         this.fullname = friend.getFullname();
         this.username = friend.getUsername();
         this.user = user;
+        this.friendState = state;
+
     }
 }
