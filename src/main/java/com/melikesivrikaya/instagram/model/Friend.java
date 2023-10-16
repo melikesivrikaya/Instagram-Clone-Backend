@@ -27,7 +27,7 @@ public class Friend {
         this.setFriendId(friend.getId());
         this.firstname = friend.getFirstname();
         this.lastname = friend.getLastname();
-        this.fullname = friend.getFullname();
+        this.fullname = friend.getFullName();
         this.username = friend.getUsername();
         this.user = user;
         this.friendState = state;

@@ -88,7 +88,7 @@ public class PostServiceImpl implements PostService {
         List<PostResponseWithCommentsAndLikes> list = new ArrayList<>();
         postsByUserId.forEach(post -> {
             List<Like> likes = likeRepository.findByPostId(post.getId());
-            List<String> names = likes.stream().map(like -> like.getUser().getFullname()).toList();
+            List<String> names = likes.stream().map(like -> like.getUser().getFullName()).toList();
             List<Comment> comments = commentRepository.findByPostId(post.getId());
             List<CommentWithUsernameAndText> commentWith = comments.stream().map(CommentWithUsernameAndText::new).toList();
             list.add(new PostResponseWithCommentsAndLikes(post,commentWith , names));

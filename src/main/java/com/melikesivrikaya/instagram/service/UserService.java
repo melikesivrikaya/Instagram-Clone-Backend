@@ -12,4 +12,5 @@ public interface UserService {
     UserResponse create( User user);
     UserResponse update( User user);
     boolean deleteById( Long id);
+    List<UserResponse> getAllWithoutFriend(Long userId);
 }

@@ -30,7 +30,7 @@ public class AuthenticationService {
         if ((request.getPhone() != null)){
             user.setPhone(request.getPhone());
         }
-        user.setFullname(request.getFullname());
+        user.setFullName(request.getFullname());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
         user.setEmail(request.getEmail());

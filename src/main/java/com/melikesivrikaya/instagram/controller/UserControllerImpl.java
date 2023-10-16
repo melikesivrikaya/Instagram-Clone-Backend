@@ -42,4 +42,9 @@ public class UserControllerImpl implements UserController {
     public boolean deleteById(@PathVariable Long id) {
         return userService.deleteById(id);
     }
+    @GetMapping("without/{id}")
+    @Override
+    public List<UserResponse> getAllWithoutFriend(@PathVariable Long id) {
+        return userService.getAllWithoutFriend(id);
+    }
 }

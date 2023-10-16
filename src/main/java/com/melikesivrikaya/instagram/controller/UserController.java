@@ -14,4 +14,5 @@ public interface UserController {
     UserResponse create( User user);
     UserResponse update( User user);
     boolean deleteById( Long id);
+    List<UserResponse> getAllWithoutFriend(Long userId);
 }

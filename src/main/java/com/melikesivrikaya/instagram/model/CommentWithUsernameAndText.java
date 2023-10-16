@@ -7,6 +7,6 @@ public class CommentWithUsernameAndText {
     private String text,userName;
     public CommentWithUsernameAndText(Comment comment){
         this.text = comment.getText();
-        this.userName = comment.getUser().getFullname();
+        this.userName = comment.getUser().getFullName();
     }
 }

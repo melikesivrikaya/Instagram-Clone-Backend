@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstname,lastname,fullname,username,email,password,phone;
+    private String firstname,lastname,fullName,username,email,password,phone,profilePhoto;
     private Role role;
 
 
