@@ -13,4 +13,5 @@ public interface StoryService {
     StoryResponse create(CreateStoryRequest request);
     StoryResponse update(UpdateStoryRequest request);
     boolean deleteById( Long id);
+    List<StoryResponse>  getAllByUserId(Long id);
 }

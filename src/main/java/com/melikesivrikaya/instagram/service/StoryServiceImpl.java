@@ -56,4 +56,9 @@ public class StoryServiceImpl implements StoryService {
         }
         return false;
     }
+
+    @Override
+    public List<StoryResponse> getAllByUserId(Long id) {
+        return storyRepository.findAllByUserId(id).stream().map(StoryResponse::new).toList();
+    }
 }

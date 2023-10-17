@@ -40,4 +40,9 @@ public class StoryControllerImpl implements StoryController {
     public boolean deleteById(@PathVariable Long id) {
         return storyService.deleteById(id);
     }
+    @GetMapping("userId/{id}")
+    @Override
+    public List<StoryResponse>  getAllByUserId(@PathVariable Long id) {
+        return storyService.getAllByUserId(id);
+    }
 }
