@@ -6,6 +6,7 @@ import com.melikesivrikaya.instagram.request.CreatePostRequest;
 import com.melikesivrikaya.instagram.request.UpdatePostRequest;
 import com.melikesivrikaya.instagram.response.PostResponse;
 import com.melikesivrikaya.instagram.response.PostResponseWithCommentsAndLikes;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,6 @@ public interface PostController {
     boolean deleteById(Long id);
 
     List<PostResponseWithCommentsAndLikes> allPostsWithCommentAndLikesByUserId(Long userId);
+    List<PostResponseWithCommentsAndLikes> getAllPostsWitoutFriend(Long id);
 
 }

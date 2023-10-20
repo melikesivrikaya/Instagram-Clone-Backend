@@ -17,4 +17,5 @@ public interface PostService {
     boolean deleteById(Long id);
 
     List<PostResponseWithCommentsAndLikes> allPostsWithCommentAndLikesByUserId(Long userId);
+    List<PostResponseWithCommentsAndLikes> getAllPostsWitoutFriend(Long userId);
 }

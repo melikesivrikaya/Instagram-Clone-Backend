@@ -24,7 +24,7 @@ public class Friend {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     public Friend(User user , User friend , FriendState state){
-        this.setFriendId(friend.getId());
+        this.friendId = friend.getId();
         this.firstname = friend.getFirstname();
         this.lastname = friend.getLastname();
         this.fullname = friend.getFullName();

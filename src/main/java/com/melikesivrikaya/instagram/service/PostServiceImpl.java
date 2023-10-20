@@ -7,13 +7,16 @@ import com.melikesivrikaya.instagram.repository.PostRepository;
 import com.melikesivrikaya.instagram.repository.UserRepository;
 import com.melikesivrikaya.instagram.request.CreatePostRequest;
 import com.melikesivrikaya.instagram.request.UpdatePostRequest;
+import com.melikesivrikaya.instagram.response.FriendResponse;
 import com.melikesivrikaya.instagram.response.PostResponse;
 import com.melikesivrikaya.instagram.response.PostResponseWithCommentsAndLikes;
+import com.melikesivrikaya.instagram.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,7 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
+    private final FriendService friendService;
     private final CommentRepository commentRepository;
     @Override
     public List<PostResponse> getAll() {
@@ -88,11 +92,25 @@ public class PostServiceImpl implements PostService {
         List<PostResponseWithCommentsAndLikes> list = new ArrayList<>();
         postsByUserId.forEach(post -> {
             List<Like> likes = likeRepository.findByPostId(post.getId());
-            List<String> names = likes.stream().map(like -> like.getUser().getFullName()).toList();
             List<Comment> comments = commentRepository.findByPostId(post.getId());
-            List<CommentWithUsernameAndText> commentWith = comments.stream().map(CommentWithUsernameAndText::new).toList();
-            list.add(new PostResponseWithCommentsAndLikes(post,commentWith , names));
+            list.add(new PostResponseWithCommentsAndLikes(post, likes ,comments ));
         });
         return  list;
+    }
+
+    @Override
+    public List<PostResponseWithCommentsAndLikes> getAllPostsWitoutFriend(Long userId){
+        List<Post> posts = postRepository.findAll();
+        List<FriendResponse> friends = friendService.getAllByUserId(userId);
+        List<PostResponseWithCommentsAndLikes> postList = new ArrayList<>();
+        posts.forEach(post -> {
+            boolean state = friends.stream().anyMatch(friend -> Objects.equals(friend.getFriendId(), post.getUser().getId()));
+            if (!state){
+                List<Like> likes = likeRepository.findByPostId(post.getId());
+                List<Comment> comments = commentRepository.findByPostId(post.getId());
+                postList.add(new PostResponseWithCommentsAndLikes(post,likes,comments));
+            }
+        });
+        return postList;
     }
 }

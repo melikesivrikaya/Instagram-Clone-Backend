@@ -50,4 +50,10 @@ public class PostControllerImpl implements PostController {
     public List<PostResponseWithCommentsAndLikes> allPostsWithCommentAndLikesByUserId(@PathVariable Long userId) {
         return postService.allPostsWithCommentAndLikesByUserId(userId);
     }
+    @GetMapping("/notfriend/{id}")
+    @Override
+    public List<PostResponseWithCommentsAndLikes> getAllPostsWitoutFriend(@PathVariable Long id){
+        return postService.getAllPostsWitoutFriend(id);
+    }
+
 }
