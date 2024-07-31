@@ -15,7 +15,7 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/api/v1/comment")
 public class CommentControllerImpl implements CommentController {
     private final CommentService commentService;
     @GetMapping

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/friend")
+@RequestMapping("/api/v1/friend")
 public class FriendControllerImpl implements FriendController {
     private final FriendService friendService;
     @GetMapping

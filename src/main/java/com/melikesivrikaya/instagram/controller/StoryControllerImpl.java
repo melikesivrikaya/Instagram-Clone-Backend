@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("story")
+@RequestMapping("/api/v1/story")
 public class StoryControllerImpl implements StoryController {
     private final StoryService storyService;
     @GetMapping

@@ -15,7 +15,7 @@ import java.util.Optional;
 @Controller
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/like")
+@RequestMapping("/api/v1/like")
 public class LikeControllerImpl implements LikeController {
     private final LikeService likeService;
     @GetMapping

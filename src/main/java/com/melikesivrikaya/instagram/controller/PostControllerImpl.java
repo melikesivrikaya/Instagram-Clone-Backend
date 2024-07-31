@@ -17,7 +17,7 @@ import java.util.Optional;
 @Controller
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/post")
+@RequestMapping("/api/v1/post")
 public class PostControllerImpl implements PostController {
     private final PostService postService;
     @GetMapping
