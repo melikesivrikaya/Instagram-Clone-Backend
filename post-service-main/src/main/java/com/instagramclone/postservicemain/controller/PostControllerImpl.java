@@ -1,11 +1,10 @@
-package com.instagramclone.instagramcloneservicemain.controller;
+package com.instagramclone.postservicemain.controller;
 
-import com.instagramclone.instagramcloneservicemain.dto.request.CreatePostRequest;
-import com.instagramclone.instagramcloneservicemain.dto.request.UpdatePostRequest;
-import com.instagramclone.instagramcloneservicemain.dto.response.PostResponse;
-import com.instagramclone.instagramcloneservicemain.dto.response.PostResponseWithCommentsAndLikes;
-import com.instagramclone.instagramcloneservicemain.model.Post;
-import com.instagramclone.instagramcloneservicemain.service.PostService;
+import com.instagramclone.postservicemain.dto.response.PostResponse;
+import com.instagramclone.postservicemain.dto.resquest.CreatePostRequest;
+import com.instagramclone.postservicemain.dto.resquest.UpdatePostRequest;
+import com.instagramclone.postservicemain.model.Post;
+import com.instagramclone.postservicemain.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -43,16 +42,6 @@ public class PostControllerImpl implements PostController {
     @Override
     public boolean deleteById(@PathVariable Long id) {
         return postService.deleteById(id);
-    }
-    @GetMapping("/userid/{userId}")
-    @Override
-    public List<PostResponseWithCommentsAndLikes> allPostsWithCommentAndLikesByUserId(@PathVariable Long userId) {
-        return postService.allPostsWithCommentAndLikesByUserId(userId);
-    }
-    @GetMapping("/notfriend/{id}")
-    @Override
-    public List<PostResponseWithCommentsAndLikes> getAllPostsWitoutFriend(@PathVariable Long id){
-        return postService.getAllPostsWitoutFriend(id);
     }
 
 }
